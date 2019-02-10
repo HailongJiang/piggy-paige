@@ -1,0 +1,679 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8">
+    <style>
+        /* 画布 */
+        .bg {
+            background-color: #4bdeff;
+            width: 800px;
+            height: 600px;
+            position: relative;
+            overflow: hidden;
+        }
+
+        /* 天空 */
+        .sky {
+            height: 450px;
+        }
+
+        /* 草地 */
+        .glass {
+            background-color: #32f962;
+            width: 140%;
+            height: 150px;
+            position: relative;
+            left: -20%;
+            border-radius: 50% 50% 0 0;
+        }
+
+        /* 佩奇影子 */
+        .shadow {
+            background-color: #000609;
+            opacity: 0.5;
+            width: 158px;
+            height: 24px;
+            border-radius: 50% 50% 50% 50%;
+            position: absolute;
+            z-index: 10;
+            bottom: 52.5px;
+            left: 300px;
+        }
+
+        /* 佩奇脚 */
+        .foot {
+            background-color: #000609;
+            width: 38px;
+            height: 10px;
+            border-radius: 200% 70% 100% 190% / 190% 150% 100% 110%;
+            position: absolute;
+            z-index: 16;
+            bottom: 60px;
+        }
+
+        /* 佩奇左脚 */
+        .leftFoot {
+            left: 332px;
+        }
+
+        /* 佩奇右脚 */
+        .rightFoot {
+            left: 394px;
+        }
+
+        /* 佩奇腿 */
+        .leg {
+            height: 32px;
+            width: 8px;
+            background-color: #ffd1e8;
+            position: absolute;
+            bottom: 62px;
+            z-index: 15;
+        }
+
+        /* 佩奇左腿 */
+        .leftLeg {
+            left: 334px;
+        }
+
+        /* 佩奇右腿 */
+        .rightLeg {
+            left: 396px;
+        }
+
+        /* 佩奇身体 */
+        .pigBody {
+            background-color: #de384e;
+            border: 6px solid #BE002E;
+            position: absolute;
+            z-index: 16;
+            bottom: 94px;
+            left: 300px;
+            width: 150px;
+            height: 116px;
+            box-sizing: border-box;
+            border-radius: 110% 110% 0 0/260% 260% 0 0;
+        }
+
+        /* 佩奇胳膊 */
+        .pigArmBody {
+            position: absolute;
+            z-index: 16;
+            bottom: 165px;
+            left: 275px;
+            width: 56px;
+            height: 8px;
+            background-color: #ffd1e8;
+            transform: rotate(-25deg);
+            border-radius: 50% 190% 20% 30% / 120% 140% 100% 100%;
+        }
+
+        .pigArmFinger {
+            background-color: #ffd1e8;
+            height: 7px;
+        }
+
+        .pigArmFinger1 {
+            position: absolute;
+            bottom: 162px;
+            left: 272px;
+            width: 15px;
+            transform: rotate(20deg);
+            border-radius: 80% 150% 140% 100% / 110% 170% 80% 110%;
+        }
+
+        .pigArmFinger2 {
+            width: 15px;
+            border-radius: 80% 150% 140% 100% / 110% 170% 80% 110%;
+            transform: rotate(-50deg);
+            position: absolute;
+            bottom: 152px;
+            left: 270px;
+        }
+
+        .pigArmFinger3 {
+            width: 12px;
+            height: 7px;
+            border-radius: 80% 150% 140% 100% / 110% 170% 80% 110%;
+            transform: rotate(-85deg);
+            position: absolute;
+            bottom: 150px;
+            left: 280px;
+        }
+        /* 佩奇右胳膊 */
+        .pigArmRight .pigArmBody {
+            transform: rotate(25deg);
+            border-radius: 190% 50% 20% 30% /140% 120% 100% 100%;
+            left: 422px;
+            z-index: 14;
+        }
+
+        .pigArmRight .pigArmFinger1 {
+            transform: rotate(-20deg);
+            left: 468px;
+            bottom: 161px;
+            border-radius: 150% 80% 100% 140% /170% 110% 110% 80%;
+        }
+
+        .pigArmRight .pigArmFinger2 {
+            transform: rotate(50deg);
+            left: 468px;
+            border-radius: 150% 80% 100% 140% /170% 110% 110% 80%;
+        }
+
+        .pigArmRight .pigArmFinger3 {
+            transform: rotate(85deg);
+            left: 462px;
+            border-radius: 150% 80% 100% 140% /170% 110% 110% 80%;
+        }
+        /* 佩奇尾巴 */
+        .tail1{
+            height: 20px;
+            width: 18px;
+            position: absolute;
+            bottom: 114px;
+            left: 279px;
+            background-color: #4bdeff;
+            border: 6px solid #ffd1e8;
+            box-sizing: border-box;
+            border-radius: 50% 50% 10% 50%;
+            transform: rotate(35deg);
+        }
+        .tail2{
+            height: 6px;
+            width: 18px;
+            position: absolute;
+            bottom: 112px;
+            left: 289px;
+            background-color: #ffd1e8;
+            border-radius: 0 0 150% 150% / 101% 0 150% 150%;
+            transform: rotate(-15deg);
+        }
+        .tail3{
+            height: 7px;
+            width: 14px;
+            position: absolute;
+            bottom: 109px;
+            left: 275px;
+            background-color: #ffd1e8;
+            border-bottom: 6px soild #ffd1e8;
+            box-sizing: border-box;
+            border-radius: 0 0 238% 211%;
+            transform: rotate(-4deg);
+        }
+        .tail4{
+            left: 266px;
+            bottom: 112px;
+            transform: rotate(47deg);
+        }
+        /* 佩奇眼睛 */
+        /* 左眼 */
+        .leftEye{
+            height: 28px;
+            width: 26px;
+            border: 4px solid #eb8bc8;
+            background-color: #ffffff;
+            border-radius: 66% 60% 58% 50%;
+            box-sizing: border-box;
+            position: absolute;
+            bottom: 265px;
+            left: 362px;
+            z-index: 22;
+        }
+        .leftEyeball{
+            height: 8px;
+            width: 8px;
+            background-color: #000609;
+            border-radius: 50%;
+            position: absolute;
+            bottom: 275px;
+            left: 369px;
+            z-index: 23;
+        }
+        /* 右眼 */
+        .rightEye{
+            height: 26px;
+            width: 26px;
+            border: 4px solid #eb8bc8;
+            background-color: #ffffff;
+            border-radius: 66% 60% 58% 50%;
+            box-sizing: border-box;
+            position: absolute;
+            bottom: 281px;
+            left: 393px;
+            z-index: 22;
+        }
+        .rightEyeball{
+            bottom: 290px;
+            left: 401px;
+        }
+        /* 腮红 */
+        .blusher{
+            width: 34px;
+            height: 40px;
+            background-color: #fb91d3;
+            position: absolute;
+            bottom: 219px;
+            left: 329px;
+            border-radius: 158% 99% 121% 98%;
+            transform: rotate(-57deg);
+            z-index: 23;
+        }
+        /* 嘴巴 */
+        .mouse{
+            background-color: #c61b81;
+            height: 24px;
+            width: 54px;
+            transform: rotate(-20deg);
+            border-radius: 0 0 50% 50% / 0 0 100% 100%;
+            position: absolute;
+            bottom: 212px;
+            left: 369px;
+            z-index: 25;
+        }
+        .mouseKeepOut{
+            background-color: #fdd0e4;
+            height: 27px;
+            width: 50px;
+            transform: rotate(-20deg);
+            border-radius: 90% 0 50% 50% / 0 0 100% 100%;
+            position: absolute;
+            bottom: 217px;
+            left: 369px;
+            z-index: 26;
+        }
+        /* 佩奇头 */
+        .header{
+            width: 170px;
+            height: 116px;
+            box-sizing: border-box;
+            border: 4px solid #eb8bc8;
+            background-color: #fdd0e4;
+            border-radius: 89% 162% 108% 113% / 126% 140% 91% 113%;
+            position: absolute;
+            bottom: 199px;
+            left: 309px;
+            transform: rotate(-38deg);
+            z-index: 20;
+        }
+        /* 佩奇头部遮挡 */
+        .headerKeepOut{
+            background-color: #4bdefe;
+            width: 100px;
+            height: 56px;
+            position: absolute;
+            bottom: 221px;
+            left: 405px;
+            transform: rotate(-44deg);
+            z-index: 21;
+        }
+        .headerKeepOut1{
+            border: 4px solid #eb8bc8;
+            border-top:none;
+            border-left: none;
+            background-color: #fdd0e4;
+            height: 45px;
+            width: 72px;
+            position: absolute;
+            bottom: 200px;
+            left: 372px;
+            transform: rotate(-37deg);
+            z-index: 22;
+            box-sizing: border-box;
+            border-radius: 0% 0% 50% 50% / 0% 0% 103% 33%;
+        }
+        .headerKeepOut2{
+            border: 4px solid #eb8bc8;
+            border-top:none;
+            border-left: none;
+            background-color: #fdd0e4;
+            height: 15px;
+            width: 66px;
+            position: absolute;
+            bottom: 261px;
+            left: 412px;
+            transform: rotate(-32deg);
+            z-index: 21;
+            box-sizing: border-box;
+            border-radius: 0% 0% 58% 36% / 0% 0% 91% 92%;
+        }
+        .headerKeepOut3,.headerKeepOut4,.headerKeepOut5,.headerKeepOut6,.headerKeepOut7,.headerKeepOut8{
+            background-color: #eb8bc8;
+            height: 10px;
+            position: absolute;
+            border-radius: 50%;
+            z-index: 24;
+        }
+        .headerKeepOut3{
+            left: 339px;
+            bottom: 280px;
+            width: 4px;
+            transform: rotate(-53deg);
+        }
+        .headerKeepOut4{
+            left: 352px;
+            bottom: 290px;
+            width: 4px;
+            transform: rotate(-26deg);
+        }
+        .headerKeepOut5{
+            left: 366px;
+            bottom: 299px;
+            width: 4px;
+            transform: rotate(-26deg);
+        }
+        .headerKeepOut6{
+            left: 382px;
+            bottom: 305px;
+            width: 4px;
+            transform: rotate(-1deg);
+        }
+        .headerKeepOut7{
+            left: 420px;
+            bottom: 247px;
+            width: 4px;
+            transform: rotate(74deg);
+        }
+        .headerKeepOut8{
+            left: 377px;
+            bottom: 190px;
+            width: 10px;
+            height: 20px;
+            transform: rotate(137deg);
+            background-color: #fdd0e4;
+        }
+        /* 佩奇鼻子 */
+        .nose{
+            width: 38px;
+            height: 50px;
+            box-sizing: border-box;
+            border: 4px solid #eb8bc8;
+            background-color: #fdd0e4;
+            border-radius: 73% 61% 75% 70% / 94% 60% 80% 47%;
+            position: absolute;
+            bottom: 270px;
+            left: 430px;
+            transform: rotate(-48deg);
+            z-index: 22;
+        }
+        .nostrils{
+            height: 8px;
+            width: 8px;
+            border-radius: 50%;
+            background-color: #ca5cbc;
+            position: absolute;
+            bottom: 292px;
+            left: 441px;
+            z-index: 23;
+        }
+        .nostrils1{
+            bottom: 296px;
+            left: 453px;
+        }
+        /* 佩奇耳朵 */
+        .ear{
+            width: 24px;
+            height: 34px;
+            box-sizing: border-box;
+            border: 4px solid #eb8bc8;
+            background-color: #fdd0e4;
+            border-radius: 73% 61% 60% 70% / 94% 60% 63% 47%;
+            position: absolute;
+            bottom: 270px;
+            left: 430px;
+            transform: rotate(-48deg);
+            z-index: 19; 
+            border-bottom: none;
+        }
+        .leftEar{
+            bottom: 282px;
+            left: 327px;
+        }
+        .rightEar{
+            bottom: 304px;
+            left: 360px;
+            transform: rotate(-15deg);
+            border-radius: 60% 94% 81% 70% / 64% 98% 1% 47%;
+        }
+        /* 花 */
+        .flower {
+            position: relative;
+            top: -61px;
+            left: 50px;
+        }
+        .flower2 {
+            top: -126px;
+            left: 110px;
+        }
+        .flower3 {
+            top: -58px;
+            left: 195px
+        }
+        .flower4 {
+            top: -71px;
+            left: 560px;
+        }
+        .flower5 {
+            top: -91px;
+            left: 680px;
+        }
+        .flower6 {
+            top: -131px;
+            left: 520px;
+        }
+        .flowerPetals1 {
+            background-color: #ffffff;
+            width: 24px;
+            height: 6px;
+            border-radius: 150% 80% 100% 140% /170% 110% 110% 80%;
+            transform: rotate(45deg);
+            z-index: 10;
+        }
+
+        .flowerPetals2 {
+            background-color: #ffffff;
+            width: 24px;
+            height: 6px;
+            border-radius: 150% 80% 100% 140% /170% 110% 110% 80%;
+            transform: rotate(-45deg);
+            position: absolute;
+            top: 0px;
+            z-index: 10;
+        }
+
+        .flowerBlossom {
+            background-color: #FFFF2C;
+            width: 12px;
+            height: 12px;
+            border-radius: 50%;
+            position: absolute;
+            top: -3px;
+            left: 6px;
+            z-index: 11;
+        }
+
+        .stems {
+            background-color: #0BA627;
+            height: 18px;
+            width: 6px;
+            position: absolute;
+            left: 9px;
+            border-radius: 50% 50% 190% 90% /50% 50% 110% 90%;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="bg">
+        <!-- 天空 start -->
+        <div class="sky"></div>
+        <!-- 天空 end -->
+        <!-- 草地 start -->
+        <div class="glass"></div>
+        <!-- 草地 end -->
+        <!-- 佩奇影子 start -->
+        <div class="shadow"></div>
+        <!-- 佩奇影子 end -->
+        <!-- 佩奇左脚 start -->
+        <div class="foot leftFoot"></div>
+        <!-- 佩奇左脚 end -->
+        <!-- 佩奇右脚 start -->
+        <div class="foot rightFoot"></div>
+        <!-- 佩奇右脚 end -->
+        <!-- 佩奇左腿 start -->
+        <div class="leg leftLeg"></div>
+        <!-- 佩奇左腿 end -->
+        <!-- 佩奇右腿 start -->
+        <div class="leg rightLeg"></div>
+        <!-- 佩奇右腿 end -->
+        <!-- 佩奇身体 start -->
+        <div class="pigBody"></div>
+        <!-- 佩奇身体 end -->
+        <!-- 佩奇左手 start -->
+        <div class="pigArmLeft">
+            <div class="pigArmBody"></div>
+            <div class="pigArmFinger pigArmFinger1"></div>
+            <div class="pigArmFinger pigArmFinger2"></div>
+            <div class="pigArmFinger pigArmFinger3"></div>
+        </div>
+        <!-- 佩奇左手 end -->
+        <!-- 佩奇右手 start -->
+        <div class="pigArmRight">
+            <div class="pigArmBody"></div>
+            <div class="pigArmFinger pigArmFinger1"></div>
+            <div class="pigArmFinger pigArmFinger2"></div>
+            <div class="pigArmFinger pigArmFinger3"></div>
+        </div>
+        <!-- 佩奇右手 end -->
+        <!-- 佩奇尾巴 start -->
+        <div class="tail">
+            <div class="tail1"></div>
+            <div class="tail2"></div>
+            <div class="tail3"></div>
+            <div class="tail3 tail4"></div>
+        </div>
+        <!-- 佩奇尾巴 end -->
+        <!-- 佩奇眼睛 start -->
+        <div class="eyes">
+            <div class="leftEye"></div>
+            <div class="leftEyeball"></div>
+            <div class="rightEye"></div>
+            <div class="leftEyeball rightEyeball"></div>
+        </div>
+        <!-- 佩奇眼睛 end -->
+        <!-- 腮红 start -->
+        <div class="blusher"></div>
+        <!-- 腮红 end -->
+        <!-- 嘴巴 start -->
+        <div class="mouse"></div>
+        <!-- 嘴巴遮挡 start -->
+        <div class="mouseKeepOut"></div>
+        <!-- 嘴巴遮挡 end -->
+        <!-- 嘴巴 end -->
+        <!-- 头 start -->
+        <div class="header"></div>
+        <!-- 头 end -->
+        <!-- 头部遮挡 start -->
+        <div class="headerKeepOut"></div>
+        <div class="headerKeepOut1"></div>
+        <div class="headerKeepOut2"></div>
+        <div class="headerKeepOut3"></div>
+        <div class="headerKeepOut4"></div>
+        <div class="headerKeepOut5"></div>
+        <div class="headerKeepOut6"></div>
+        <div class="headerKeepOut7"></div>
+        <div class="headerKeepOut8"></div>
+        <!-- 头部遮挡 end -->
+        <!-- 鼻子 start -->
+        <div class="nose"></div>
+        <!-- 鼻孔 start -->
+        <div class="nostrils"></div>
+        <div class="nostrils nostrils1"></div>
+        <!-- 鼻孔 end -->
+        <!-- 鼻子 end -->
+        <!-- 佩奇耳朵 start -->
+        <div class="ear leftEar"></div>
+        <div class="ear rightEar"></div>
+        <!-- 佩奇耳朵 end -->
+        <!-- 佩奇尾巴 start -->
+        <!-- 佩奇尾巴 end -->
+        <!-- 佩奇尾巴 start -->
+        <!-- 佩奇尾巴 end -->
+        <!-- 花1 start -->
+        <div class="flower">
+            <!-- 花瓣 -->
+            <div class="flowerPetals1"></div>
+            <!-- 花瓣 -->
+            <div class="flowerPetals2"></div>
+            <!-- 花蕊 -->
+            <div class="flowerBlossom"></div>
+            <!-- 枝干 -->
+            <div class="stems"></div>
+        </div>
+        <!-- 花1 end -->
+        <!-- 花2 start -->
+        <div class="flower flower2">
+            <!-- 花瓣 -->
+            <div class="flowerPetals1"></div>
+            <!-- 花瓣 -->
+            <div class="flowerPetals2"></div>
+            <!-- 花蕊 -->
+            <div class="flowerBlossom"></div>
+            <!-- 枝干 -->
+            <div class="stems"></div>
+        </div>
+        <!-- 花2 end -->
+        <!-- 花3 start -->
+        <div class="flower flower3">
+            <!-- 花瓣 -->
+            <div class="flowerPetals1"></div>
+            <!-- 花瓣 -->
+            <div class="flowerPetals2"></div>
+            <!-- 花蕊 -->
+            <div class="flowerBlossom"></div>
+            <!-- 枝干 -->
+            <div class="stems"></div>
+        </div>
+        <!-- 花3 end -->
+        <!-- 花4 start -->
+        <div class="flower flower4">
+            <!-- 花瓣 -->
+            <div class="flowerPetals1"></div>
+            <!-- 花瓣 -->
+            <div class="flowerPetals2"></div>
+            <!-- 花蕊 -->
+            <div class="flowerBlossom"></div>
+            <!-- 枝干 -->
+            <div class="stems"></div>
+        </div>
+        <!-- 花4 end -->
+        <!-- 花5 start -->
+        <div class="flower flower5">
+            <!-- 花瓣 -->
+            <div class="flowerPetals1"></div>
+            <!-- 花瓣 -->
+            <div class="flowerPetals2"></div>
+            <!-- 花蕊 -->
+            <div class="flowerBlossom"></div>
+            <!-- 枝干 -->
+            <div class="stems"></div>
+        </div>
+        <!-- 花5 end -->
+        <!-- 花6 start -->
+        <div class="flower flower6">
+            <!-- 花瓣 -->
+            <div class="flowerPetals1"></div>
+            <!-- 花瓣 -->
+            <div class="flowerPetals2"></div>
+            <!-- 花蕊 -->
+            <div class="flowerBlossom"></div>
+            <!-- 枝干 -->
+            <div class="stems"></div>
+        </div>
+        <!-- 花6 end -->
+    </div>
+
+</body>
+
+</html>
